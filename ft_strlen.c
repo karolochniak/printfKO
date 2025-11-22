@@ -6,11 +6,11 @@
 /*   By: kochniak <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 15:25:58 by kochniak          #+#    #+#             */
-/*   Updated: 2025/10/02 23:05:26 by kochniak         ###   ########.fr       */
+/*   Updated: 2025/11/22 10:47:50 by kochniak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "printf.h"
 
 size_t	ft_strlen(const char *str)
 {

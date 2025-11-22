@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hexadecimalwrite.c                                 :+:      :+:    :+:   */
+/*   hexadecimalwrite copy.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kochniak <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/21 16:48:51 by kochniak          #+#    #+#             */
-/*   Updated: 2025/11/22 10:39:14 by kochniak         ###   ########.fr       */
+/*   Updated: 2025/11/22 10:39:18 by kochniak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,15 @@ static int	odwroc_napis(char *str)
 	return (ft_strlen(str));
 }
 
-int	na_szesnastkowy(unsigned long liczba)
+int	na_szesnastkowy_d(unsigned long liczba)
 {
 	int				i;
 	unsigned int	reszta;
 	const char		*znaki;
 	char			bufor[sizeof(unsigned long) * 2 + 1];
-	int				printed;
 
 	i = 0;
-	znaki = "0123456789abcdef";
+	znaki = "0123456789ABCDEF";
 	if (liczba == 0)
 	{
 		ft_putstr_fd("0", 1);
@@ -53,6 +52,5 @@ int	na_szesnastkowy(unsigned long liczba)
 		liczba = liczba / 16UL;
 	}
 	bufor[i] = '\0';
-	printed = odwroc_napis(bufor);
-	return (printed);
+	return (odwroc_napis(bufor));
 }

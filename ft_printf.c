@@ -6,62 +6,64 @@
 /*   By: kochniak <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/07 13:59:47 by kochniak          #+#    #+#             */
-/*   Updated: 2025/11/21 16:53:10 by kochniak         ###   ########.fr       */
+/*   Updated: 2025/11/22 10:38:38 by kochniak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "ft_printf.h"
 
-int checking(const char *str, va_list argh)
+int	checking(const char *str, va_list argh)
 {
+	int	count;
+
+	count = 0;
 	if (*str == 'c')
-		ft_putchar_fd(va_arg (argh, char) , 1);
-	if (*str == 's')
-		ft_putstr_fd(va_arg (argh, char *), 1);
-	if (*str == 'd' || *str == 'i')
-		ft_putnbr_fd(va_arg(argh, int), 1);
-	if (*str == '%')
-		write(1, "%",1);
-	if (*str == 'u')
-		ft_putnbr_fd(va_arg(argh, unsigned int), 1);
-	if (*str == 'p')
-		printpointer(va_arg(argh, void *));
-	if (*str == 'x')
-		hexadecimalwrite(va_arg(argh, int), 'x');
-	if (*str == 'X')
-		hexadecimalwrite(va_arg(argh, int), 'X');
-	return (0);
+		count += ft_putchar_fd((char)va_arg(argh, int), 1);
+	else if (*str == 's')
+		count += ft_putstr_fd(va_arg(argh, char *), 1);
+	else if (*str == 'd' || *str == 'i')
+		count += ft_putnbr_fd(va_arg(argh, int), 1);
+	else if (*str == '%')
+	{
+		write(1, "%", 1);
+		count += 1;
+	}
+	else if (*str == 'u')
+		count += ft_putunbr_fd(va_arg(argh, unsigned int), 1);
+	else if (*str == 'p')
+		count += printpointer(argh);
+	else if (*str == 'x')
+		count += na_szesnastkowy((unsigned long)va_arg(argh, unsigned int));
+	else if (*str == 'X')
+		count += na_szesnastkowy_d((unsigned long)va_arg(argh, unsigned int));
+	return (count);
 }
-int ft_printf(const char *str, ...)
+
+int	ft_printf(const char *str, ...)
 {
 	va_list	argumenty;
 	int		counter;
-	
+	int		tmp;
+
 	counter = 0;
 	if (!str)
 		return (0);
-	va_start(argumenty,str);
+	va_start(argumenty, str);
 	while (*str)
 	{
 		if (*str == '%')
 		{
 			str++;
-			checking((char *) str, argumenty);
+			tmp = checking(str, argumenty);
+			counter += tmp;
 			str++;
 		}
 		else
-			{
-				ft_putchar_fd(*str, 1);
-				str++;
-				counter++;
-			}	
+		{
+			counter += ft_putchar_fd(*str, 1);
+			str++;
+		}
 	}
+	va_end(argumenty);
 	return (counter);
-}
-
-int main (void)
-{
-	ft_printf("Kot i %s kociak pierdolec %%, %d", "pies", 42);
-	return (0);
 }

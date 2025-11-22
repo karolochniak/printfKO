@@ -1,27 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
+/*   printingpointer.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kochniak <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/09 14:44:33 by kochniak          #+#    #+#             */
-/*   Updated: 2025/10/11 11:52:16 by kochniak         ###   ########.fr       */
+/*   Created: 2025/11/22 08:42:09 by kochniak          #+#    #+#             */
+/*   Updated: 2025/11/22 10:45:17 by kochniak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include <unistd.h>
+#include "ft_printf.h"
 
-void	ft_putendl_fd(char *s, int fd)
+int	printpointer(va_list arg)
 {
-	int		i;
+	void			*p;
+	unsigned long	ptr_address;
+	int				count;
 
-	i = 0;
-	while (s[i])
+	p = va_arg(arg, void *);
+	ptr_address = (unsigned long)p;
+	if (!ptr_address)
 	{
-		write(fd, &s[i], 1);
-		i++;
+		write(1, "(nil)", 5);
+		return (5);
 	}
-	write(fd, "\n", 1);
+	ft_putstr_fd("0x", 1);
+	count = 2;
+	count += na_szesnastkowy(ptr_address);
+	return (count);
 }
